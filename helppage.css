@@ -319,54 +319,173 @@ body {
     position: relative;
     background-color: rgba(128, 133, 138, 0.3);
     top: 5vh;
-    height: 50vh;
+    height: 100vh;
     display: flex;
     box-shadow: -10px 0px 5px rgba(0, 0, 0, 0.5);
     z-index: 1000; 
+    padding: 10px;
     justify-content: center;
     flex-direction: column;
 }
-#help-searchbar{
-    display: flex;
-    left:100px;
-    top: 5vh;
-    margin-top: 5vh;
-    height:10vh;
-    justify-content: center;
-}
-#help-searchbar input {
+.heading1{
+    position: absolute;
+    top: 0;
+    height: 8vh;
+    width: 100%;
     text-align: center;
-    border-radius: 25px;
+    font-size: 300%;
+    color:#d72d6e;
+}
+.heading2{
+    position: absolute;
+    top: 8vh;
+    height:8vh;
+    width: 100%;
+    text-align: center;
+    font-size: 250%;
+    color:#d72d6e;
+}
+.questions1{
+    position: absolute;
+    top: 16vh;
     height: 4vh;
-    width: 38vw;
-    font-size: medium;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 2px solid transparent;
-    outline: none;
-}
-
-#help-searchbar input:hover {
-    border: 2px solid gold;
-}
-
-#help-searchbar button {
-    cursor: pointer;
-    border: none;
-    background-color: gold;
-    height: 4.3vh;
-    width: 4vw;
+    width: 70%;
+    font-size: 150%;
     display: flex;
-    align-items: center;
+    padding: 10px;
+    border: 2px solid rgba(128, 133, 138, 0.3);
+    border-radius: 20px;
+    color:#464344;
+}
+.symbol{
+    position: absolute;
+    width: 4vh;
+    height: 4vb;
+    display: flex;
+    border: 2px solid rgba(54, 53, 53, 0.858);
+    border-radius: 50%;
+    right: 10px;
     justify-content: center;
-    border-radius: 25px;
-    margin-left: 1%;
+    align-items: center;
+}
+.questions2{
+    position: absolute;
+    top: 25vh;
+    height: 4vh;
+    width: 70%;
+    font-size: 150%;
+    display: flex;
+    padding: 10px;
+    border: 2px solid rgba(128, 133, 138, 0.3);
+    border-radius: 20px;
+    color:#464344;
+}
+.questions3{
+    position: absolute;
+    top: 34vh;
+    height: 4vh;
+    width: 70%;
+    font-size: 150%;
+    display: flex;
+    padding: 10px;
+    border: 2px solid rgba(128, 133, 138, 0.3);
+    border-radius: 20px;
+    color:#464344;
+}
+.questions4{
+    position: absolute;
+    top: 43vh;
+    height: 4vh;
+    width: 70%;
+    font-size: 150%;
+    display: flex;
+    padding: 10px;
+    border: 2px solid rgba(128, 133, 138, 0.3);
+    border-radius: 20px;
+    color:#464344;
+}
+.questions5{
+    position: absolute;
+    top: 52vh;
+    height: 4vh;
+    width: 70%;
+    font-size: 150%;
+    display: flex;
+    padding: 10px;
+    border: 2px solid rgba(128, 133, 138, 0.3);
+    border-radius: 20px;
+    color:#464344;
+}
+.questions6{
+    position: absolute;
+    top: 61vh;
+    height: 4vh;
+    width: 70%;
+    font-size: 150%;
+    display: flex;
+    padding: 10px;
+    border: 2px solid rgba(128, 133, 138, 0.3);
+    border-radius: 20px;
+    color:#464344;
+}
+.questions7{
+    position: absolute;
+    top: 70vh;
+    height: 4vh;
+    width: 70%;
+    font-size: 150%;
+    display: flex;
+    padding: 10px;
+    border: 2px solid rgba(128, 133, 138, 0.3);
+    border-radius: 20px;
+    color:#464344;
+}
+.otherhelp{
+    position: absolute;
+    top: 79vh;
+    height: 6vh;
+    width: 100%;
+    font-size: 200%;
+    display: flex;
+    color:#464344;
+    justify-content: center;
+}
+.helpbutton{
+    font-size: 60%;
+    color:#464344;
+    border:2px solid rgba(128, 133, 138, 0.3);
+    border-radius: 20px;
+    width:10%;
+}
+.helpbutton:hover{
+    border:1px solid #d72d6e;
+}
+.questions1:hover{
+    border:1px solid #d72d6e;
+}
+.questions2:hover{
+    border:1px solid #d72d6e;
+}
+.questions3:hover{
+    border:1px solid #d72d6e;
+}
+.questions4:hover{
+    border:1px solid #d72d6e;
+}
+.questions5:hover{
+    border:1px solid #d72d6e;
+}
+.questions6:hover{
+    border:1px solid #d72d6e;
+}
+.questions7:hover{
+    border:1px solid #d72d6e;
+}
+.symbol:hover{
+        border:2px solid rgb(151, 4, 92);
 }
 
-#help-searchbar button:hover {
-    border: 2px solid rgb(245, 232, 155);
-}
-.help-items{
-    font-size: medium;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 5vh;
-}
+
+
+
+
