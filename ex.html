@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Help Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #d72d6e;
+            --secondary-color: #264653;
+            --background-color: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+        }
+
+        .chat-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            height: 90vh;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .chat-messages {
+            height: calc(100% - 120px);
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .bot-message {
+            background: #e9ecef;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .quick-replies {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .quick-option {
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .quick-option:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .timestamp {
+            font-size: 0.75em;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .back-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                margin: 10px;
+                height: 95vh;
+            }
+            
+            .quick-option {
+                font-size: 0.8em;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Travel Booking Support</h2>
+            <p>We're here to help 24/7</p>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <!-- Chat messages will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        const helpData = {
+            mainQuestions: [
+                {
+                    text: "Account & Profile",
+                    subQuestions: [
+                        { 
+                            text: "Password Update", 
+                            answer: "To modify dates:\n1. Go to 'My Trips'\n2. Select booking\n3. Choose new dates\n4. Confirm changes" 
+                        },
+                        { 
+                            text: "Email Update", 
+                            answer: "Cancellation steps:\n1. Find booking\n2. Select 'Cancel'\n3. Confirm\nRefunds processed in 5-7 business days" 
+                        },
+                        { 
+                            text: "Account Deletion", 
+                            answer: "To add passengers:\n1. Edit booking\n2. 'Add Traveler' option\n3. Enter details\n4. Pay difference if needed" 
+                        }
+                    ]
+                },
+                {
+                    text: "Payment & Refunds",
+                    subQuestions: [
+                        { 
+                            text: "Payment Failures", 
+                            answer: "Check:\n1. Card details\n2. Expiry date\n3. Available balance\nContact bank if issues persist" 
+                        },
+                        { 
+                            text: "Refund Timeline", 
+                            answer: "Refunds typically process within 7-10 business days. Contact payments@travelhelp.com for queries" 
+                        },
+                        { 
+                            text: "Payment methods", 
+                            answer: "Accepted methods:\n- Credit/Debit cards\n- PayPal\n- Bank transfers\n- Cryptocurrency (selected routes)" 
+                        }
+                    ]
+                },
+                {
+                    text: "Bookings & Modifications",
+                    subQuestions: [
+                        { 
+                            text: "Date changes", 
+                            answer: "Requirements vary by destination. Check our visa guide or consult local embassy" 
+                        },
+                        { 
+                            text: "Passenger Additions", 
+                            answer: "Find tickets in:\n1. 'My Account'\n2. 'Bookings' section\n3. Download PDF" 
+                        },
+                        { 
+                            text: "Booking Cancellations", 
+                            answer: "Required documents:\n- Passport\n- Government ID\n- Visa (if applicable)\n- Vaccination proof" 
+                        }
+                    ]
+                },
+                {
+                    text: "Check-In & Stay",
+                    subQuestions: [
+                        { 
+                            text: "Early Check-In", 
+                            answer: "Baggage limits vary by airline. Check your booking details or airline website" 
+                        },
+                        { 
+                            text: "ID Requirements", 
+                            answer: "Add luggage:\n1. Manage booking\n2. 'Add Services'\n3. Select baggage\n4. Pay fee" 
+                        },
+                        { 
+                            text: "Amenities", 
+                            answer: "Immediately report to:\n1. Airport baggage desk\n2. File claim\n3. Contact our support team" 
+                        }
+                    ]
+                },
+                {
+                    text: "Cancellations & Policies",
+                    subQuestions: [
+                        { 
+                            text: "Cancellation Policy", 
+                            answer: "Request when booking or contact support@travelhelp.com at least 48h before travel" 
+                        },
+                        { 
+                            text: "Partial Refunds", 
+                            answer: "Notify us during booking or update in 'Special Requests' section" 
+                        },
+                        { 
+                            text: "No-show Policy", 
+                            answer: "Pet policies vary by carrier. Check airline rules and required documentation" 
+                        }
+                    ]
+                }
+            ]
+        };
+
+        let currentMainQuestion = null;
+
+        function showMainQuestions() {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = `
+                <div class="message bot-message">
+                    <p>How can we assist with your travel plans?</p>
+                    <div class="quick-replies">
+                        ${helpData.mainQuestions.map(q => `
+                            <div class="quick-option" onclick="showSubQuestions('${q.text}')">
+                                ${q.text}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="timestamp">${new Date().toLocaleTimeString()}</div>
+                </div>
+            `;
+        }
+
+        function showSubQuestions(mainQuestionText) {
+            const mainQuestion = helpData.mainQuestions.find(q => q.text === mainQuestionText);
+            const chatMessages = document.getElementById('chatMessages');
+            
+            chatMessages.innerHTML += `
+                <div class="message user-message">
+                    <p>${mainQuestionText}</p>
+                    <div class="timestamp">${new Date().toLocaleTimeString()}</div>
+                </div>
+                <div class="message bot-message">
+                    <p>Select your specific query:</p>
+                    <div class="quick-replies">
+                        ${mainQuestion.subQuestions.map(sub => `
+                            <div class="quick-option" onclick="showAnswer('${mainQuestionText}', '${sub.text}')">
+                                ${sub.text}
+                            </div>
+                        `).join('')}
+                        <div class="quick-option back-button" onclick="showMainQuestions()">
+                            ← Back to Main
+                        </div>
+                    </div>
+                    <div class="timestamp">${new Date().toLocaleTimeString()}</div>
+                </div>
+            `;
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showAnswer(mainQuestionText, subQuestionText) {
+            const chatMessages = document.getElementById('chatMessages');
+            const question = helpData.mainQuestions
+                .find(q => q.text === mainQuestionText)
+                .subQuestions.find(sq => sq.text === subQuestionText);
+
+            chatMessages.innerHTML += `
+                <div class="message user-message">
+                    <p>${subQuestionText}</p>
+                    <div class="timestamp">${new Date().toLocaleTimeString()}</div>
+                </div>
+                <div class="message bot-message">
+                    <p>${question.answer.replace(/\n/g, '<br>')}</p>
+                    <div class="quick-replies">
+                        <div class="quick-option" onclick="showSubQuestions('${mainQuestionText}')">
+                            ← Back to ${mainQuestionText}
+                        </div>
+                        <div class="quick-option back-button" onclick="showMainQuestions()">
+                            ← Main Menu
+                        </div>
+                    </div>
+                    <div class="timestamp">${new Date().toLocaleTimeString()}</div>
+                </div>
+            `;
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Initialize chat
+        showMainQuestions();
+    </script>
+</body>
+</html>
